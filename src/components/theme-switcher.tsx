@@ -1,40 +1,29 @@
 import { useEffect, useState } from 'react';
 
-// Main App component that includes the ThemeSwitcher
 export default function ThemeSwitcher() {
-  // State to manage the current theme: 'light' or 'dark'
   const [theme, setTheme] = useState(() => {
-    // Initialize theme from localStorage or system preference
-    // Check if a theme is already saved in localStorage
-    // const savedTheme = localStorage.getItem('theme');
-    // if (savedTheme) {
-    //   return savedTheme;
-    // }
-    // If no theme is saved, check system preference for dark mode
-    // if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    //   return 'dark';
-    // }
-    // Default to 'light' if no preference is found
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme;
+    }
+
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
     return 'light';
   });
 
-  // useEffect to apply the theme class to the document's root element (<html>)
   useEffect(() => {
     const root = document.documentElement;
-    // Remove both classes first to ensure only the correct one is applied
     root.classList.remove('light', 'dark');
-    // Add the current theme class
     root.classList.add(theme);
-    // Save the current theme to localStorage
     localStorage.setItem('theme', theme);
-  }, [theme]); // Re-run this effect whenever the 'theme' state changes
+  }, [theme]);
 
-  // Function to toggle the theme
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  // SVG for Sun icon
   const SunIcon = (props: any) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +49,6 @@ export default function ThemeSwitcher() {
     </svg>
   );
 
-  // SVG for Moon icon
   const MoonIcon = (props: any) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
