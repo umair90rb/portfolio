@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  margin: 0;
+  height: 100vh;
+}
+
+:root {
+  --secondary-color: #4caf50;
+}
+
+@keyframes blinkCaret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--secondary-color);
+  }
+}
+
+.animate-blink-caret {
+  animation: blinkCaret 0.75s step-end infinite;
+}
